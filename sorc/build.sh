@@ -119,12 +119,17 @@ elif [[ -d /lfs/h1 ]] ; then
   # Load module file for WCOSS2
 # module load Module_ens_tracker.v1.1.15_for_Wcoss2
  source ../modulefiles/build.module_load_wcoss2
+set -eux
 
  machine=wcoss2
- export INC="${G2_INCd} -I${NETCDF_INCLUDES}"
- export LIBS="${W3EMC_LIBd} ${W3NCO_LIBd} ${BACIO_LIB4} ${G2_LIBd} ${PNG_LIB} ${JASPER_LIB} ${Z_LIB} -L${NetCDF_LIBRARIES} -lnetcdff -lnetcdf"
- export LIBS_SUP="${W3EMC_LIBd} ${W3NCO_LIBd}"
- export LIBS_UK="${W3NCO_LIB4} ${BACIO_LIB4}"
+# export INC="${G2_INCd} -I${NETCDF}/include"
+# export LIBS="${W3EMC_LIBd} ${W3NCO_LIBd} ${BACIO_LIB4} ${G2_LIBd} ${PNG_LIB} ${JASPER_LIB} ${Z_LIB} -L${NetCDF_LIBRARIES} -lnetcdff -lnetcdf"
+# export LIBS_SUP="${W3EMC_LIBd} ${W3NCO_LIBd}"
+# export LIBS_UK="${W3NCO_LIB4} ${BACIO_LIB4}"
+export INC="${G2_INCd} -I${netcdf_c_ROOT}/include -I${HDF5_DIR}/include "
+export LIBS="${W3EMC_LIBd} ${W3NCO_LIBd} ${BACIO_LIB4} ${G2_LIBd} -L${libpng_ROOT}/lib64 -lpng -L${jasper_ROOT}/lib64 -ljasper -L${zlib_ROOT}/lib -lz ${SP_LIBd} ${IP_LIBd} -L${netcdf_c_ROOT}/lib -L${netcdf_fortran_ROOT}/lib -lnetcdff -lnetcdf -L${HDF5_DIR}/lib -lhdf5_hl -lhdf5 "
+export LIBS_SUP="${W3EMC_LIBd} ${W3NCO_LIBd}"
+export LIBS_UK="${W3NCO_LIB4} ${BACIO_LIB4}"
 
 for dir in *.fd; do
   cd $dir
